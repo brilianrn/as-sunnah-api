@@ -1,5 +1,6 @@
-import { SurahType } from '../domain';
+import { SurahDetailType, SurahType } from '../domain';
 
 export interface SurahServicePort {
-  getListSurah: (id: string) => Promise<Array<SurahType>>;
+  getListSurah: () => Promise<Array<SurahType>>;
+  getDetailSurah: (id: string) => Promise<SurahDetailType>;
 }

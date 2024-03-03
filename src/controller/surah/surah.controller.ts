@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { SurahControllerPort } from 'src/service/surah/port/controller.port';
 import { SurahService } from 'src/service/surah/surah.service';
@@ -16,12 +16,31 @@ export class SurahController implements SurahControllerPort {
       const data = await this.surahService.getListSurah();
       if (!data) {
         return responseRest[HttpStatus.NOT_FOUND](res, {
-          message: responseMessage('Daftar surah')[404],
+          message: responseMessage('Daftar surat')[404],
           data,
         });
       }
       return responseRest[HttpStatus.OK](res, {
-        message: responseMessage('surah').findAll,
+        message: responseMessage('surat').findAll,
+        data,
+      });
+    } catch (error) {
+      return responseRest[HttpStatus.INTERNAL_SERVER_ERROR](res);
+    }
+  }
+
+  @Get('/:id')
+  async detailSurah(@Res() res: Response, @Param('id') id: string) {
+    try {
+      const data = await this.surahService.getDetailSurah(id);
+      if (!data) {
+        return responseRest[HttpStatus.NOT_FOUND](res, {
+          message: responseMessage('Detail surat')[404],
+          data,
+        });
+      }
+      return responseRest[HttpStatus.OK](res, {
+        message: responseMessage('surat').findDetail,
         data,
       });
     } catch (error) {
