@@ -9,3 +9,7 @@ export const juzRoute = {
 export const surahRoute = {
   index: '/surah',
 };
+
+export const dzikirRoute = {
+  index: '/dzikir',
+};
